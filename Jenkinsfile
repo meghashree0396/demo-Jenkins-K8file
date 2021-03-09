@@ -7,8 +7,17 @@ pipeline {
       label 'master'
     }
  }
+ environment {
+    DOCKER_TAG = getVersion()
+}
  
  stages {
+     stage('SCM'){
+                steps{
+                    git credentialsId: 'GITHUB', 
+                    url: 'https://github.com/meghashree0396/demo-Jenkins-K8file.git'
+                }
+            }
  
 	stage('Initialize'){
 	   steps{
@@ -23,36 +32,46 @@ pipeline {
 	  agent { docker { image 'python:3.8.5-alpine3.12' } }
       steps {
         sh '''
-	      python -m venv .venv
-              . .venv/bin/activate
+	      pip freeze > requirements.txt
 	      pip install -r requirements.txt '''
       }
     }
 	
-    //stage('test') {
-	//agent { docker { image 'python:3.8.5-alpine3.12' } }
-      //steps {
-        //sh 'python ${WORKSPACE}/src/test.py'
-      //}
-    //}
+    
 	
     stage('Docker Image') {
       steps{
-	      sh 'docker build -t personal-python-test .'
+	      sh 'docker build -t 007892345/personal-python-test:${DOCKER_TAG} . '
 		  }
         }
-		
-    stage('Run Image / Container Creation') {
-        steps{
-		sh '''
-		docker container rm -f myfirstcontainer
-		docker run -p 5000:5000 -d --name myfirstcontainer personal-python-test'''
-		
-		}
-    }
-  }
+    stage('DockerHub Push') {
+      steps{
+          withCredentials([string(credentialsId: 'DockerHub', variable: 'DockerHubPwd')]) {
+         sh 'docker login -u 007892345 -p ${DockerHubPwd}'
+}
+	      sh 'docker push 007892345/personal-python-test:${DOCKER_TAG} '
+		  }
+        }
+        stage('Ansible Playbook') {
+      steps{
+         script{
+           sh '''final_tag=$(echo $Docker_tag | tr -d ' ')
+           sed -i "s/Docker_tag/$final_tag/g" deployment.yml
+           '''
+           ansiblePlaybook become: true , installation: 'ansible', playbook: 'playbook.yml'
+         }
+}
+	      
+		  }
+        }
+ }
+}
+ def getVersion(){
+ def  Commithash = sh label: '', returnStdout: true, script: 'git rev-parse --short HEAD'
+    return Commithash
 }
 
+		
 
 
 
