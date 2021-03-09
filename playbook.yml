@@ -17,5 +17,5 @@
   - name: Delete the previous of kubernetes objects
     command: kubectl delete -f /root/service.yml
   - name: Create a Deployment by reading the definition from a local file  
-    command: kubectl apply -f /root/deployment.yml
+    command: kubectl apply -f /root/service.yml
       
