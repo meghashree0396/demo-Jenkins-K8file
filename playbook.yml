@@ -1,5 +1,16 @@
 - hosts: localhost
+  become: True
   tasks:
+  - name: install kubectl 
+    apt:
+      name: kubectl
+      state: present
+  - name: start kubectl
+    services:
+      name: kubectl
+      state: started
+      enabled: yes
+      
   - name: copy deployment file to kubernetes master
     copy:
       src: deployment.yml
@@ -9,5 +20,15 @@
     command: kubectl delete -f /root/deployment.yml
   - name: Create a Deployment by reading the definition from a local file  
     command: kubectl apply -f /root/deployment.yml
+    
+  - name: copy deployment file to kubernetes master
+    copy:
+      src: service.yml
+      dest: /root/
+      
+  - name: Delete the previous of kubernetes objects
+    command: kubectl delete -f /root/service.yml
+  - name: Create a Deployment by reading the definition from a local file  
+    command: kubectl apply -f /root/service.yml
   
       
