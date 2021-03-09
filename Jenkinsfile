@@ -58,7 +58,7 @@ pipeline {
 }
 	      
 		  }
-        }
+        
  }
 }
  def getVersion(){
