@@ -4,18 +4,10 @@
     copy:
       src: deployment.yml
       dest: /root/
-      namespace: default
+      
   - name: Delete the previous of kubernetes objects
     command: kubectl delete -f /root/deployment.yml
   - name: Create a Deployment by reading the definition from a local file  
     command: kubectl apply -f /root/deployment.yml
-  - name: copy deployment file to kubernetes master
-    copy:
-      src: service.yml
-      dest: /root/
-      namespace: default
-  - name: Delete the previous of kubernetes objects
-    command: kubectl delete -f /root/service.yml
-  - name: Create a Deployment by reading the definition from a local file  
-    command: kubectl apply -f /root/service.yml
+  
       
