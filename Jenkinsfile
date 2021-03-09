@@ -12,12 +12,7 @@ pipeline {
 }
  
  stages {
-     stage('SCM'){
-                steps{
-                    git credentialsId: 'GITHUB', 
-                    url: 'https://github.com/meghashree0396/demo-Jenkins-K8file.git'
-                }
-            }
+     
  
 	stage('Initialize'){
 	   steps{
