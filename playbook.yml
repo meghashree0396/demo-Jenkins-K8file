@@ -1,15 +1,6 @@
 - hosts: localhost
   become: True
   tasks:
-  - name: install kubectl 
-    apt:
-      name: kubectl
-      state: present
-  - name: start kubectl
-    services:
-      name: kubectl
-      state: started
-      enabled: yes
       
   - name: copy deployment file to kubernetes master
     copy:
