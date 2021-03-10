@@ -52,8 +52,10 @@ pipeline {
          script{
            sh '''final_tag=$(echo $Docker_tag | tr -d ' ')
            sed -i "s/Docker_tag/$final_tag/g" deployment.yml
+	   
            '''
-           ansiblePlaybook become: true, installation: 'Ansible', playbook: 'ansible.yml'
+		 sh "ansible-playbook  playbook.yml"
+          // ansiblePlaybook become: true, installation: 'Ansible', playbook: 'ansible.yml'
          }
 }
 	      
