@@ -51,7 +51,7 @@ pipeline {
 	      
 		  }
         
- }
+ 
 }
  def getVersion(){
  def  Commithash = sh label: '', returnStdout: true, script: 'git rev-parse --short HEAD'
