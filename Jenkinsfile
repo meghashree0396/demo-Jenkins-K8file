@@ -47,7 +47,12 @@ pipeline {
 	      sh 'docker push 007892345/personal-python-test:${DOCKER_TAG} '
 		  }
         }
-        
+        stage('Deploy App') {
+         steps {
+          script {
+            kubernetesDeploy(configs: "deployment.yml", kubeconfigId: "mykubeconfig")
+        }
+      }
 	      
 		  }
         
