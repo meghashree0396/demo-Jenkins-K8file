@@ -47,17 +47,7 @@ pipeline {
 	      sh 'docker push 007892345/personal-python-test:${DOCKER_TAG} '
 		  }
         }
-        stage('Ansible Playbook') {
-      steps{
-         script{
-           sh '''final_tag=$(echo $Docker_tag | tr -d ' ')
-           sed -i "s/Docker_tag/$final_tag/g" deployment.yml
-	   
-           '''
-		 sh "ansible-playbook  playbook.yml"
-          // ansiblePlaybook become: true, installation: 'Ansible', playbook: 'ansible.yml'
-         }
-}
+        
 	      
 		  }
         
