@@ -1,19 +1,38 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-deployment
+  labels:
+    app: myweb
+  name: myweb
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: devops
+      app: myweb
   template:
     metadata:
       labels:
-        app: devops
+        app: myweb
     spec:
       containers:
-      - name: devops
-        image: 007892345/personal-python-test:DOCKER_TAG
+      - image: 007892345/personal-python-test:DOCKER_TAG
+        imagePullPolicy: Always
+        name: myweb
 
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: myweb
+  name: myweb
+spec:
+  ports:
+  - nodePort: 32223
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: myweb
+  type: NodePort
