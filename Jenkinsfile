@@ -27,8 +27,8 @@ pipeline {
 	  agent { docker { image 'python:3.8.5-alpine3.12' } }
       steps {
         sh '''
-	     // pip freeze > requirements.txt
-	      sudo pip install -r requirements.txt '''
+	      pip freeze > requirements.txt
+	      pip install -r requirements.txt '''
       }
     }
 	
