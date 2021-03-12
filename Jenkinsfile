@@ -28,7 +28,7 @@ pipeline {
       steps {
         sh '''
 	     // pip freeze > requirements.txt
-	      pip install -r requirements.txt '''
+	      sudo pip install -r requirements.txt '''
       }
     }
 	
