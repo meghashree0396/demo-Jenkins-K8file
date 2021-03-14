@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: 007892345/personal-python-test:DOCKER_TAG
+      - image: 007892345/personal-python-test:tagname
         imagePullPolicy: Always
         name: myweb
 
