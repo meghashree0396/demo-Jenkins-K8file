@@ -55,7 +55,7 @@ pipeline {
 		       sh ' curl -LO "https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl" '
                        sh 'chmod u+x ./kubectl'
 		       sh 'final_tag=$(echo $DOCKER_TAG | tr -d ' ')'
-		       sh 'sed -i "s/DOCKER_TAG/$final_tag/g' deployment.yml
+		       sh 'sed -i "s/DOCKER_TAG/$final_tag/g" deployment.yml'
 		       sh './kubectl apply -f deployment.yml'
     
 }
