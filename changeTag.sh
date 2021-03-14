@@ -1,2 +1,2 @@
 #!/bin/bash
-sed "s/tagVersion/$1/g" deployment.yml > nod-app-deployment.yml
+sed "s/tagVersion/$1/g" deployment.yml 
