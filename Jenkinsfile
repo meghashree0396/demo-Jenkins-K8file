@@ -51,7 +51,7 @@ pipeline {
          steps {
           script {
             // kubernetesDeploy(configs: "deployment.yml", kubeconfigId: "mykubeconfig1")
-	       withKubeConfig([credentialsId: 'mykubeconfig0']) {
+	       withKubeConfig([credentialsId: 'mykubeconfig1']) {
 		       sh ' curl -LO "https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl" '
                        sh 'chmod u+x ./kubectl'
 		       sh '''final_tag=$(echo $DOCKER_TAG | tr -d ' ')
