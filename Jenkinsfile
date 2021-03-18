@@ -44,8 +44,8 @@ pipeline {
       steps{
         //  withCredentials([string(credentialsId: 'DockerHub1', variable: 'DockerHubPwd')]) {
         // sh 'docker login -u 007892345 -p ${DockerHubPwd}'
-	         withCredentials([string(credentialsId: 'DockerHub3', variable: 'DOCKER_CERT_PATH')]) {
-		  sh 'docker login -u eainddvops -p ${Harbor}'
+	         withCredentials([string(credentialsId: 'DockerHub4', variable: 'DockerHubPwd2')]) {
+		  sh 'docker login -u eainddvops -p ${DockerHubPwd2}'
 }
 	          sh 'docker push 007892345/personal-python-test:${DOCKER_TAG} '
 		  }
