@@ -36,15 +36,18 @@ pipeline {
 	
     stage('Docker Image') {
       steps{
-	      sh 'docker build -t 007892345/personal-python-test:${DOCKER_TAG} . '
+	     // sh 'docker build -t 007892345/personal-python-test:${DOCKER_TAG} . '
+	        sh 'docker build -t test/personal-python-test:${DOCKER_TAG} . '
 		  }
         }
     stage('DockerHub Push') {
       steps{
-          withCredentials([string(credentialsId: 'DockerHub1', variable: 'DockerHubPwd')]) {
-         sh 'docker login -u 007892345 -p ${DockerHubPwd}'
+        //  withCredentials([string(credentialsId: 'DockerHub1', variable: 'DockerHubPwd')]) {
+        // sh 'docker login -u 007892345 -p ${DockerHubPwd}'
+	         withCredentials([string(credentialsId: 'DockerHub3', variable: 'DOCKER_CERT_PATH')]) {
+		  sh 'docker login -u eainddvops -p ${Harbor}'
 }
-	      sh 'docker push 007892345/personal-python-test:${DOCKER_TAG} '
+	          sh 'docker push 007892345/personal-python-test:${DOCKER_TAG} '
 		  }
         }
         stage('Deploy App') {
