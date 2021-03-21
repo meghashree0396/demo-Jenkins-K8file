@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: hadoop-c04n06.ss.sw.ericsson.se:31333/test/test/personal-python-test:DOCKER_TAG
+      - image: test/personal-python-test:DOCKER_TAG
         imagePullPolicy: Always
         name: myweb
 
