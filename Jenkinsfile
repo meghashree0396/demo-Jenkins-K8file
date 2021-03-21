@@ -43,13 +43,14 @@ pipeline {
         }
     stage('DockerHub Push') {
       steps{
-        //  withCredentials([string(credentialsId: 'DockerHub1', variable: 'DockerHubPwd')]) {
+       //  withCredentials([string(credentialsId: 'DockerHub1', variable: 'harbor_cred')]) {
         // sh 'docker login -u 007892345 -p ${DockerHubPwd}'
 	       // withCredentials([string( variable: 'harbor_auth')]) {
 		//  sh 'docker login -u meghashree.munikrishna@ericsson.com -p ${harbor_auth}'
 	     // sh '''echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u 'meghashree.munikrishna@ericsson.com' -p ${harbor_auth}'''
 			//sh 'docker push  $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME'
-	     sh ' docker login -u meghashree.munikrishna@ericsson.com -p HM8F3lY3P hadoop-c04n06.ss.sw.ericsson.se:31333 '
+	      withCredentials([usernamePassword(credentialsId: 'harbor_cred', passwordVariable: 'Harbor_passwd', usernameVariable: 'Harbor_user')])
+	     sh ' docker login -u ${Harbor_user} -p ${Harbor_passwd} hadoop-c04n06.ss.sw.ericsson.se:31333 '
 	      sh 'docker tag test/personal-python-test:${DOCKER_TAG} hadoop-c04n06.ss.sw.ericsson.se:31333/test/test/personal-python-test:${DOCKER_TAG}'
 	      sh 'docker push hadoop-c04n06.ss.sw.ericsson.se:31333/test/test/personal-python-test:${DOCKER_TAG}'
 }
