@@ -9,10 +9,6 @@ pipeline {
  }
  environment {
 	 
-    REGISTRY = 'hadoop-c04n06.ss.sw.ericsson.se:31333'
-    HARBOR_NAMESPACE = 'test'
-    APP_NAME = 'test/personal-python-test:${DOCKER_TAG}'
-    HARBOR_CREDENTIAL = credentials('harbor_cred')
     DOCKER_TAG = getVersion()
 }
  
@@ -49,10 +45,11 @@ pipeline {
       steps{
         //  withCredentials([string(credentialsId: 'DockerHub1', variable: 'DockerHubPwd')]) {
         // sh 'docker login -u 007892345 -p ${DockerHubPwd}'
-	        withCredentials([string( variable: 'harbor_auth')]) {
+	       // withCredentials([string( variable: 'harbor_auth')]) {
 		//  sh 'docker login -u meghashree.munikrishna@ericsson.com -p ${harbor_auth}'
-	      sh '''echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u 'meghashree.munikrishna@ericsson.com' -p ${harbor_auth}'''
-			sh 'docker push  $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME'
+	     // sh '''echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u 'meghashree.munikrishna@ericsson.com' -p ${harbor_auth}'''
+			//sh 'docker push  $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME'
+	     sh ' docker login -u meghashree.munikrishna@ericsson.com -p HM8F3lY3P hadoop-c04n06.ss.sw.ericsson.se:31333 '
 }
 	         // sh 'docker push test/personal-python-test:${DOCKER_TAG} '
 	    
