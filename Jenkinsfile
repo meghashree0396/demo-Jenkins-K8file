@@ -57,7 +57,7 @@ pipeline {
 }
 	         // sh 'docker push test/personal-python-test:${DOCKER_TAG} '
 	    
-		 }
+		// }
         }
         stage('Deploy App') {
          steps {
