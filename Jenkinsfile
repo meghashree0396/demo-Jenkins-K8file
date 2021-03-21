@@ -44,10 +44,10 @@ pipeline {
       steps{
         //  withCredentials([string(credentialsId: 'DockerHub1', variable: 'DockerHubPwd')]) {
         // sh 'docker login -u 007892345 -p ${DockerHubPwd}'
-	         withCredentials([string(credentialsId: 'DockerHub4', variable: 'DockerHubPwd2')]) {
-		  sh 'docker login -u meghashree.munikrishna@ericson.com -p ${DockerHubPwd2}'
+	         withCredentials([string(credentialsId: 'harbor_cred', variable: 'harbor_auth')]) {
+		  sh 'docker login -u meghashree.munikrishna@ericsson.com -p ${harbor_auth}'
 }
-	          sh 'docker push 007892345/personal-python-test:${DOCKER_TAG} '
+	          sh 'docker push test/personal-python-test:${DOCKER_TAG} '
 		  }
         }
         stage('Deploy App') {
