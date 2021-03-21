@@ -38,7 +38,7 @@ pipeline {
     stage('Docker Image') {
       steps{
 	     // sh 'docker build -t 007892345/personal-python-test:${DOCKER_TAG} . '
-	        sh 'docker build -t test/personal-python-test:${DOCKER_TAG} . '
+	        sh 'docker build -t meghashree.munikrishna@ericsson.com/personal-python-test:${DOCKER_TAG} . '
 		  }
         }
     stage('DockerHub Push') {
@@ -50,7 +50,7 @@ pipeline {
 	     // sh '''echo $HARBOR_CREDENTIAL_PSW | docker login $REGISTRY -u 'meghashree.munikrishna@ericsson.com' -p ${harbor_auth}'''
 			//sh 'docker push  $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME'
 	     sh ' docker login -u meghashree.munikrishna@ericsson.com -p HM8F3lY3P hadoop-c04n06.ss.sw.ericsson.se:31333 '
-	      sh 'docker push test/personal-python-test:${DOCKER_TAG}'
+	      sh 'docker push meghashree.munikrishna@ericsson.com/personal-python-test:${DOCKER_TAG}'
 }
 	         // sh 'docker push test/personal-python-test:${DOCKER_TAG} '
 	    
